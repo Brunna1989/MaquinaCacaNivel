@@ -1,15 +1,17 @@
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+package client;
+
+import criptografia.AESUtil;
+
+import java.io.*;
 import java.net.Socket;
-import java.util.Random;
 
 public class ClientHandler implements Runnable {
     private Socket clientSocket;
     private ObjectInputStream inputStream;
     private ObjectOutputStream outputStream;
+    private static final String SECRET_KEY = "1a09698bd334ba19a0bfe21e7cbbdf8af19e8381d2e4ede8d8b784e9f08207c5";
 
-    public ClientHandler(Socket clientSocket) {
+    public ClientHandler(Socket clientSocket, String secretKey) {
         this.clientSocket = clientSocket;
         try {
             outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
@@ -23,12 +25,12 @@ public class ClientHandler implements Runnable {
     public void run() {
         try {
             while (true) {
-                // Recebe a solicitação do cliente para jogar
-                String request = (String) inputStream.readObject();
-                if (request.equals("PLAY")) {
-                    // Processa a jogada e envia o resultado de volta ao cliente
+                String encryptedRequest = (String) inputStream.readObject();
+                String decryptedRequest = AESUtil.decrypt(encryptedRequest, SECRET_KEY);
+                if (decryptedRequest.equals("PLAY")) {
                     int result = playSlotMachine();
-                    outputStream.writeObject(result);
+                    String encryptedResult = AESUtil.encrypt(String.valueOf(result), SECRET_KEY);
+                    outputStream.writeObject(encryptedResult);
                 }
             }
         } catch (IOException | ClassNotFoundException e) {
@@ -45,7 +47,6 @@ public class ClientHandler implements Runnable {
     }
 
     private int playSlotMachine() {
-        Random random = new Random();
-        return random.nextInt(7);
+        return (int) (Math.random() * 7);
     }
 }

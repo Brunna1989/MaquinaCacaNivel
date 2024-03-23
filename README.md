@@ -4,9 +4,9 @@ Este é um jogo de caça-níquel simples implementado em Java, utilizando socket
 
 ## Como Jogar
 
-1. Execute o servidor Server.java.
-2. Execute o cliente Client.java.
-3. Execute a classe SlotMachine.
+1. Execute a classe SecretKeyGenerator para gerar a chave secreta (utilizada no processo de criptografia).
+2. Copie a chave secreta e cole-a na variável de ambiente **SECRET_KEY** das classes: **ClientHandler** e **Server**.
+3. Execute a classe app.ClientMachine.
 3. A interface do jogo será exibida.
 4. Clique no botão "Add Money (R$10)" para adicionar crédito.
 5. Clique no botão "PLAY (R$1)" para jogar.
@@ -28,6 +28,6 @@ A comunicação entre cliente e servidor é protegida usando criptografia AES. C
 
 ## Funcionamento Interno
 
-- SlotMachine.java: Classe principal que cria a interface do jogo e lida com a interação do usuário. Também controla o crédito do jogador e as operações de jogo.
-- Server.java e Client.java: Estabelecem a conexão entre cliente e servidor usando sockets. O servidor recebe as solicitações do cliente e executa o jogo, enquanto o cliente envia solicitações de jogar e recebe os resultados.
+- app.ClientMachine.java: Classe principal que cria a interface do jogo e lida com a interação do usuário. Também controla o crédito do jogador e as operações de jogo.
+- servidor.Server.java e Client.java: Estabelecem a conexão entre cliente e servidor usando sockets. O servidor recebe as solicitações do cliente e executa o jogo, enquanto o cliente envia solicitações de jogar e recebe os resultados.
   Com estas modificações, o jogo de caça-níquel atende aos requisitos especificados e está pronto para ser executado e utilizado.

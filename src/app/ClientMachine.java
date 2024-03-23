@@ -1,16 +1,18 @@
+package app;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
 
-public class SlotMachine extends JFrame {
+public class ClientMachine extends JFrame {
     private JLabel n1;
     private JLabel n2;
     private JLabel n3;
     private int credit = 0;
 
-    public SlotMachine() {
+    public ClientMachine() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(400, 90, 556, 577);
         setResizable(false);
@@ -121,7 +123,7 @@ public class SlotMachine extends JFrame {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    SlotMachine frame = new SlotMachine();
+                    ClientMachine frame = new ClientMachine();
                     frame.setVisible(true);
                 } catch (Exception e) {
                     e.printStackTrace();
